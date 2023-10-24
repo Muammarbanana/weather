@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/core/helpers.dart';
-import 'package:weatherapp/core/theme/input_decoration_manager.dart';
-import 'package:weatherapp/core/theme/text_style_manager.dart';
-import 'package:weatherapp/features/presentation/ui/authentication/pages/register_page.dart';
 
+import '../../../../../core/helpers.dart';
 import '../../../../../core/theme/button_style_manager.dart';
+import '../../../../../core/theme/input_decoration_manager.dart';
+import '../../../../../core/theme/text_style_manager.dart';
 import '../../../../../injection_container.dart';
-import '../../../../data/datasources/authentication_remote_data_sources.dart';
 import '../../../bloc/authentication_bloc/authentication_bloc.dart';
 
-class LoginPage extends StatefulWidget {
-  static const routeName = '/login-page';
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  static const routeName = '/register-page';
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // All TextEditingController goes here
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -58,22 +56,21 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const SizedBox(height: 100),
                     Image.asset(
-                      'assets/images/rainy_weather.png',
+                      'assets/images/sunny_weather.png',
                       height: 200,
                     ),
                     const SizedBox(height: 40),
-                    _signInWithEmailWidget(),
-                    _signInWithSocmedWidget(),
+                    _registerWithEmailWidget(),
                     Text(
-                      'Don\'t have an account?',
+                      'Already have an account?',
                       style: TextStyleManager.mediumText(),
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, RegisterPage.routeName);
+                        Navigator.pop(context);
                       },
                       child: Text(
-                        'Register',
+                        'Sign In',
                         style: TextStyleManager.mediumText(
                             color: Colors.deepPurple),
                       ),
@@ -88,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _signInWithEmailWidget() {
+  Widget _registerWithEmailWidget() {
     return Column(
       children: [
         TextFormField(
@@ -124,51 +121,15 @@ class _LoginPageState extends State<LoginPage> {
           style: ButtonStyleManager.primary(),
           onPressed: () {
             if (_formKey.currentState != null) {
-              if (_formKey.currentState!.validate()) {
-                _authenticationBloc
-                    .add(LoginWithEmailEvent(ParamsLoginWithEmail(
-                  email: _emailController.text,
-                  password: _passwordController.text,
-                )));
-              }
+              if (_formKey.currentState!.validate()) {}
             }
           },
           child: Text(
-            'Sign In with Email',
+            'Register with Email',
             style: TextStyleManager.buttonText(),
           ),
         ),
         const SizedBox(height: 20),
-      ],
-    );
-  }
-
-  Widget _signInWithSocmedWidget() {
-    return Column(
-      children: [
-        Text(
-          'Or',
-          style: TextStyleManager.mediumText(),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          style: ButtonStyleManager.primaryWhite(),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/icons/google.png', height: 30),
-              const SizedBox(width: 16),
-              Text(
-                'Sign In with Google',
-                style: TextStyleManager.mediumText(),
-              )
-            ],
-          ),
-        ),
-        const SizedBox(height: 30),
       ],
     );
   }

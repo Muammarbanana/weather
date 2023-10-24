@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:weatherapp/features/presentation/ui/authentication/pages/login_page.dart';
-import 'package:weatherapp/firebase_options.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'core/routes/app_route.dart';
+import 'features/presentation/ui/authentication/pages/login_page.dart';
+import 'firebase_options.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -15,17 +18,19 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  static const routeName = '/';
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Weather App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: GoogleFonts.inter().fontFamily,
         useMaterial3: true,
       ),
+      onGenerateRoute: (settings) => AppRoute.generateRoute(settings),
       home: const LoginPage(),
     );
   }
