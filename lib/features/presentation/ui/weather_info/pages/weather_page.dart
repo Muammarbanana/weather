@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/core/theme/text_style_manager.dart';
 import 'package:weatherapp/features/presentation/bloc/weather_bloc/weather_bloc.dart';
 import 'package:weatherapp/features/presentation/ui/weather_info/widgets/weather_item_card_widget.dart';
 import 'package:weatherapp/injection_container.dart';
+
+import '../../authentication/pages/login_page.dart';
 
 class WeatherPage extends StatefulWidget {
   static const routeName = '/weather-page';
@@ -36,7 +39,12 @@ class _WeatherPageState extends State<WeatherPage> {
         backgroundColor: Colors.deepPurple,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              FirebaseAuth.instance.signOut().then((value) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginPage.routeName, (route) => false);
+              });
+            },
             icon: const Icon(Icons.logout),
             color: Colors.white,
           )
@@ -47,11 +55,15 @@ class _WeatherPageState extends State<WeatherPage> {
         child: BlocBuilder<WeatherBloc, WeatherState>(
           builder: (context, state) {
             if (state is WeatherSuccessState) {
-              return ListView(children: [
-                ...state.weatherReponse.list!.map(
-                  (e) => WeatherItemCardWidget(weatherItemData: e),
-                )
-              ]);
+              return RefreshIndicator(
+                onRefresh: () => Future.sync(
+                    () => _weatherBloc.add(WeatherGotInitialData())),
+                child: ListView(children: [
+                  ...state.weatherReponse.list!.map(
+                    (e) => WeatherItemCardWidget(weatherItemData: e),
+                  )
+                ]),
+              );
             } else if (state is WeatherLoadingState) {
               return const Center(
                 child: CircularProgressIndicator(color: Colors.deepPurple),

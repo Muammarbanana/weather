@@ -51,6 +51,7 @@ dependencies:
   build_runner: ^2.4.6
   cached_network_image: ^3.3.0
   intl: ^0.18.1
+  google_sign_in: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/launcher_icon/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
