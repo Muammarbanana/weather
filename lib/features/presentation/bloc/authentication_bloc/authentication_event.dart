@@ -23,3 +23,20 @@ class LoginWithEmailEvent extends AuthenticationEvent {
     return 'LoginWithEmailEvent{params: $params}';
   }
 }
+
+class RegisterWithEmailEvent extends AuthenticationEvent {
+  final ParamsLoginWithEmail params;
+  const RegisterWithEmailEvent(
+    this.params,
+  );
+
+  @override
+  List<Object> get props => [
+        params,
+      ];
+
+  @override
+  String toString() {
+    return 'RegisterWithEmailEvent{params: $params}';
+  }
+}

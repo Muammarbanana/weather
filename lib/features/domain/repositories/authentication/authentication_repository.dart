@@ -7,4 +7,6 @@ import '../../../../core/errors/failure.dart';
 abstract class AuthenticationRepository {
   Future<Either<Failure, UserCredential?>> loginWithEmail(
       ParamsLoginWithEmail params);
+  Future<Either<Failure, UserCredential?>> registerWithEmail(
+      ParamsLoginWithEmail params);
 }

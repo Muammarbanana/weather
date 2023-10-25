@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthenticationRemoteDataSource {
   Future<UserCredential?> loginWithEmail(ParamsLoginWithEmail params);
+  Future<UserCredential?> registerWithEmail(ParamsLoginWithEmail params);
 }
 
 class AuthenticationRemoteDataSourceImpl
@@ -12,6 +13,18 @@ class AuthenticationRemoteDataSourceImpl
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: params.email, password: params.password);
+      return credential;
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthException(code: e.toString(), message: e.message);
+    }
+  }
+
+  @override
+  Future<UserCredential?> registerWithEmail(ParamsLoginWithEmail params) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: params.email, password: params.password);
       return credential;
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.toString(), message: e.message);

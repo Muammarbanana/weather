@@ -21,6 +21,16 @@ class AuthenticationSuccessLoginWithEmailState extends AuthenticationState {
   List<Object?> get props => [userCredential];
 }
 
+class AuthenticationSuccessRegisterWithEmailState extends AuthenticationState {
+  final UserCredential? userCredential;
+
+  const AuthenticationSuccessRegisterWithEmailState(
+      {required this.userCredential});
+
+  @override
+  List<Object?> get props => [userCredential];
+}
+
 class AuthenticationFailureState extends AuthenticationState {
   final String errorMessage;
   const AuthenticationFailureState({

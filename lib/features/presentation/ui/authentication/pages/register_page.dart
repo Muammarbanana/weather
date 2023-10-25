@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherapp/features/data/datasources/authentication_remote_data_sources.dart';
 
 import '../../../../../core/helpers.dart';
 import '../../../../../core/theme/button_style_manager.dart';
@@ -32,16 +33,16 @@ class _RegisterPageState extends State<RegisterPage> {
         create: (context) => _authenticationBloc,
         child: BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
-            if (state is AuthenticationSuccessLoginWithEmailState) {
+            if (state is AuthenticationSuccessRegisterWithEmailState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Berhasil login ${state.userCredential}'),
+                  content: Text('Success Register ${state.userCredential}'),
                 ),
               );
             } else if (state is AuthenticationFailureState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Gagal login ${state.errorMessage}'),
+                  content: Text('Failed Register ${state.errorMessage}'),
                 ),
               );
             }
@@ -121,7 +122,11 @@ class _RegisterPageState extends State<RegisterPage> {
           style: ButtonStyleManager.primary(),
           onPressed: () {
             if (_formKey.currentState != null) {
-              if (_formKey.currentState!.validate()) {}
+              if (_formKey.currentState!.validate()) {
+                _authenticationBloc.registerWithEmail(ParamsLoginWithEmail(
+                    email: _emailController.text,
+                    password: _passwordController.text));
+              }
             }
           },
           child: Text(
