@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/features/data/datasources/authentication_remote_data_sources.dart';
 
+import '../../../../../core/common_widgets/loading_dialog_widget.dart';
 import '../../../../../core/helpers.dart';
 import '../../../../../core/theme/button_style_manager.dart';
 import '../../../../../core/theme/input_decoration_manager.dart';
 import '../../../../../core/theme/text_style_manager.dart';
+import '../../../../../core/utils/custom_dialog.dart';
 import '../../../../../injection_container.dart';
 import '../../../bloc/authentication_bloc/authentication_bloc.dart';
+import '../../weather_info/pages/weather_page.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register-page';
@@ -33,18 +36,19 @@ class _RegisterPageState extends State<RegisterPage> {
         create: (context) => _authenticationBloc,
         child: BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
-            if (state is AuthenticationSuccessRegisterWithEmailState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Success Register ${state.userCredential}'),
-                ),
-              );
+            if (state is AuthenticationSuccessLoginWithEmailState) {
+              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, WeatherPage.routeName, (route) => false);
             } else if (state is AuthenticationFailureState) {
+              Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Failed Register ${state.errorMessage}'),
+                  content: Text(state.errorMessage),
                 ),
               );
+            } else {
+              CustomDialog().of(context).dialog(const LoadingDialogWidget());
             }
           },
           child: Padding(
@@ -111,7 +115,7 @@ class _RegisterPageState extends State<RegisterPage> {
           decoration: InputDecorationManager.defaultStyle(hintText: 'Password'),
           style: TextStyleManager.mediumText(),
           validator: (value) {
-            if (value == null) {
+            if (value == null || value == '') {
               return 'Please enter a password';
             }
             return null;
@@ -123,9 +127,13 @@ class _RegisterPageState extends State<RegisterPage> {
           onPressed: () {
             if (_formKey.currentState != null) {
               if (_formKey.currentState!.validate()) {
-                _authenticationBloc.registerWithEmail(ParamsLoginWithEmail(
-                    email: _emailController.text,
-                    password: _passwordController.text));
+                _authenticationBloc.add(
+                  RegisterWithEmailEvent(
+                    ParamsLoginWithEmail(
+                        email: _emailController.text,
+                        password: _passwordController.text),
+                  ),
+                );
               }
             }
           },

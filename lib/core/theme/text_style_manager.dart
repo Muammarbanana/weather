@@ -48,4 +48,20 @@ class TextStyleManager {
       fontWeight: fontWeight ?? defaultFontWeight,
     );
   }
+
+  static TextStyle titleText({
+    Color? color,
+    double? fontSize,
+    FontWeight? fontWeight,
+  }) {
+    const double defaultFontSize = 18;
+    const Color defaultColor = Colors.black;
+    const FontWeight defaultFontWeight = FontWeight.w400;
+
+    return TextStyle(
+      color: color ?? defaultColor,
+      fontSize: fontSize ?? defaultFontSize,
+      fontWeight: fontWeight ?? defaultFontWeight,
+    );
+  }
 }

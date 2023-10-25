@@ -3,6 +3,8 @@ import 'package:weatherapp/features/presentation/ui/authentication/pages/login_p
 import 'package:weatherapp/features/presentation/ui/authentication/pages/register_page.dart';
 import 'package:weatherapp/main.dart';
 
+import '../../features/presentation/ui/weather_info/pages/weather_page.dart';
+
 class AppRoute {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -20,6 +22,11 @@ class AppRoute {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => const RegisterPage(),
+        );
+      case WeatherPage.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const WeatherPage(),
         );
       default:
         return MaterialPageRoute(

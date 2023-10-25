@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherapp/core/common_widgets/loading_dialog_widget.dart';
 import 'package:weatherapp/core/helpers.dart';
 import 'package:weatherapp/core/theme/input_decoration_manager.dart';
 import 'package:weatherapp/core/theme/text_style_manager.dart';
+import 'package:weatherapp/core/utils/custom_dialog.dart';
 import 'package:weatherapp/features/presentation/ui/authentication/pages/register_page.dart';
+import 'package:weatherapp/features/presentation/ui/weather_info/pages/weather_page.dart';
 
 import '../../../../../core/theme/button_style_manager.dart';
 import '../../../../../injection_container.dart';
@@ -35,17 +38,18 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
             if (state is AuthenticationSuccessLoginWithEmailState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Berhasil login ${state.userCredential}'),
-                ),
-              );
+              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, WeatherPage.routeName, (route) => false);
             } else if (state is AuthenticationFailureState) {
+              Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Gagal login ${state.errorMessage}'),
+                  content: Text(state.errorMessage),
                 ),
               );
+            } else {
+              CustomDialog().of(context).dialog(const LoadingDialogWidget());
             }
           },
           child: Padding(
@@ -113,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
           decoration: InputDecorationManager.defaultStyle(hintText: 'Password'),
           style: TextStyleManager.mediumText(),
           validator: (value) {
-            if (value == null) {
+            if (value == null || value == '') {
               return 'Please enter a password';
             }
             return null;
