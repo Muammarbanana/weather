@@ -9,4 +9,5 @@ abstract class AuthenticationRepository {
       ParamsLoginWithEmail params);
   Future<Either<Failure, UserCredential?>> registerWithEmail(
       ParamsLoginWithEmail params);
+  Future<Either<Failure, UserCredential?>> loginWithGoogle();
 }

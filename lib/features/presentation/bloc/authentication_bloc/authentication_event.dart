@@ -40,3 +40,5 @@ class RegisterWithEmailEvent extends AuthenticationEvent {
     return 'RegisterWithEmailEvent{params: $params}';
   }
 }
+
+class LoginWithGoogleEvent extends AuthenticationEvent {}

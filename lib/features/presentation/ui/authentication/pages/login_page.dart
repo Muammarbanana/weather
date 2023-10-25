@@ -37,7 +37,8 @@ class _LoginPageState extends State<LoginPage> {
         create: (context) => _authenticationBloc,
         child: BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
-            if (state is AuthenticationSuccessLoginWithEmailState) {
+            if (state is AuthenticationSuccessLoginWithEmailState ||
+                state is AuthenticationSuccessLoginWithGoogleState) {
               Navigator.pop(context);
               Navigator.pushNamedAndRemoveUntil(
                   context, WeatherPage.routeName, (route) => false);
@@ -158,7 +159,11 @@ class _LoginPageState extends State<LoginPage> {
           height: 20,
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            _authenticationBloc.add(
+              LoginWithGoogleEvent(),
+            );
+          },
           style: ButtonStyleManager.primaryWhite(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -16,6 +16,7 @@ import 'core/services/shared_preference_manager.dart';
 import 'features/data/repositories/authentication/authentication_repository_impl.dart';
 import 'features/domain/repositories/authentication/authentication_repository.dart';
 import 'features/domain/usecases/login_with_email.dart';
+import 'features/domain/usecases/login_with_google.dart';
 import 'features/domain/usecases/register_with_email.dart';
 
 final sl = GetIt.instance;
@@ -37,11 +38,12 @@ Future<void> init() async {
   // Usecases
   sl.registerLazySingleton(() => LoginWithEmail(repository: sl()));
   sl.registerLazySingleton(() => RegisterWithEmail(repository: sl()));
+  sl.registerLazySingleton(() => LoginWithGoogle(repository: sl()));
   sl.registerLazySingleton(() => GetWeathers(repository: sl()));
 
   // BLoC
-  sl.registerFactory(
-      () => AuthenticationBloc(loginWithEmail: sl(), registerWithEmail: sl()));
+  sl.registerFactory(() => AuthenticationBloc(
+      loginWithEmail: sl(), registerWithEmail: sl(), loginWithGoogle: sl()));
   sl.registerFactory(() => WeatherBloc(getWeathers: sl()));
 
   // External

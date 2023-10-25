@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBzverdzgCJcJeOwCTYz7BgnDfxO3WOb5M',
-    appId: '1:149225895755:web:7d434aebd56ba797efdace',
-    messagingSenderId: '149225895755',
-    projectId: 'weatherapp-f0212',
-    authDomain: 'weatherapp-f0212.firebaseapp.com',
-    storageBucket: 'weatherapp-f0212.appspot.com',
-    measurementId: 'G-N7RGFQC7NP',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBdA_fB60TmvLPqbMv6Z1R3Qx-ekIt1dgg',
     appId: '1:149225895755:android:7831758b9ae7960eefdace',
@@ -67,17 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '149225895755',
     projectId: 'weatherapp-f0212',
     storageBucket: 'weatherapp-f0212.appspot.com',
+    androidClientId: '149225895755-c7oefcbeai911vmnbhd6hgeqoqncvd3f.apps.googleusercontent.com',
     iosClientId: '149225895755-g83r0uppkivn9k7areb1toe2svreojle.apps.googleusercontent.com',
     iosBundleId: 'com.muammar.weatherapp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAHc7HIkak149W5ibcXHeC7O26uEszfMnU',
-    appId: '1:149225895755:ios:923fe9e7c3dc479aefdace',
-    messagingSenderId: '149225895755',
-    projectId: 'weatherapp-f0212',
-    storageBucket: 'weatherapp-f0212.appspot.com',
-    iosClientId: '149225895755-qqe4jmddh58i3sudj9qpn597f3m9moq9.apps.googleusercontent.com',
-    iosBundleId: 'com.muammar.weatherapp.RunnerTests',
   );
 }

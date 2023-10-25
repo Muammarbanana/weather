@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "149225895755-c7oefcbeai911vmnbhd6hgeqoqncvd3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muammar.weatherapp",
+            "certificate_hash": "a6a17c31f728ae8e898c0494bffa4621ba2bad5a"
+          }
+        },
+        {
           "client_id": "149225895755-5ctv0qojktmnlsso3n1436b5n4to24vh.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "149225895755-5ctv0qojktmnlsso3n1436b5n4to24vh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "149225895755-g83r0uppkivn9k7areb1toe2svreojle.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.muammar.weatherapp"
+              }
             }
           ]
         }

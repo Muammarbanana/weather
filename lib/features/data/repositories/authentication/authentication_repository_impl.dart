@@ -59,4 +59,25 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       return Left(ConnectionFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, UserCredential?>> loginWithGoogle() async {
+    bool isConnected = await networkInfo.isConnected;
+    if (isConnected) {
+      try {
+        final response = await remoteDataSource.loginWithGoogle();
+        return Right(response);
+      } on FirebaseAuthException catch (error) {
+        return Left(
+          ServerFailure(
+            DataApiFailure(message: error.message),
+          ),
+        );
+      } on TypeError catch (error) {
+        return Left(ParsingFailure(error.toString()));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
 }

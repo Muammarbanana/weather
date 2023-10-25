@@ -85,7 +85,7 @@ class Coord extends Equatable {
   @JsonKey(name: "lon")
   final double? lon;
 
-  Coord({
+  const Coord({
     this.lat,
     this.lon,
   });
