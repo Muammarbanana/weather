@@ -49,12 +49,28 @@ class TextStyleManager {
     );
   }
 
-  static TextStyle titleText({
+  static TextStyle header2Text({
     Color? color,
     double? fontSize,
     FontWeight? fontWeight,
   }) {
     const double defaultFontSize = 18;
+    const Color defaultColor = Colors.black;
+    const FontWeight defaultFontWeight = FontWeight.w400;
+
+    return TextStyle(
+      color: color ?? defaultColor,
+      fontSize: fontSize ?? defaultFontSize,
+      fontWeight: fontWeight ?? defaultFontWeight,
+    );
+  }
+
+  static TextStyle headerText({
+    Color? color,
+    double? fontSize,
+    FontWeight? fontWeight,
+  }) {
+    const double defaultFontSize = 24;
     const Color defaultColor = Colors.black;
     const FontWeight defaultFontWeight = FontWeight.w400;
 

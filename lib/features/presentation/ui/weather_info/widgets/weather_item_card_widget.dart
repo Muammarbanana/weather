@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weatherapp/core/theme/text_style_manager.dart';
+import 'package:weatherapp/features/presentation/ui/weather_info/pages/weather_details_page.dart';
 
 import '../../../../data/models/weather/weather_response.dart';
 
@@ -14,16 +15,21 @@ class WeatherItemCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String generateDate() {
-      var dt = DateTime.fromMillisecondsSinceEpoch(
+    DateTime generateDate() {
+      DateTime dt = DateTime.fromMillisecondsSinceEpoch(
           (int.tryParse(weatherItemData.dt.toString()) ?? 0) * 1000);
       // 12 Hour format:
-      return DateFormat('EE, MMM dd, yyyy hh:mm a').format(dt);
+      return dt;
     }
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, WeatherDetailsPage.routeName, arguments: {
+          'weatherDateTime': generateDate(),
+          'weatherItemData': weatherItemData,
+        });
+      },
       child: Column(
         children: [
           Row(
@@ -39,7 +45,8 @@ class WeatherItemCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      generateDate(),
+                      DateFormat('EE, MMM dd, yyyy hh:mm a')
+                          .format(generateDate()),
                       style: TextStyleManager.mediumText(
                           fontWeight: FontWeight.bold),
                     ),

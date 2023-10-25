@@ -28,7 +28,7 @@ class _WeatherPageState extends State<WeatherPage> {
       appBar: AppBar(
         title: Text(
           'Weather App',
-          style: TextStyleManager.titleText(
+          style: TextStyleManager.header2Text(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
