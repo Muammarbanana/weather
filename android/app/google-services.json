@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "149225895755",
+    "project_id": "weatherapp-f0212",
+    "storage_bucket": "weatherapp-f0212.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149225895755:android:7831758b9ae7960eefdace",
+        "android_client_info": {
+          "package_name": "com.muammar.weatherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149225895755-c7oefcbeai911vmnbhd6hgeqoqncvd3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muammar.weatherapp",
+            "certificate_hash": "a6a17c31f728ae8e898c0494bffa4621ba2bad5a"
+          }
+        },
+        {
+          "client_id": "149225895755-5ctv0qojktmnlsso3n1436b5n4to24vh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdA_fB60TmvLPqbMv6Z1R3Qx-ekIt1dgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149225895755-5ctv0qojktmnlsso3n1436b5n4to24vh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "149225895755-g83r0uppkivn9k7areb1toe2svreojle.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.muammar.weatherapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
