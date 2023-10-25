@@ -45,6 +45,12 @@ dependencies:
   google_fonts: ^6.1.0
   geolocator: ^10.1.0
   shared_preferences: ^2.2.2
+  dio: ^5.3.3
+  json_annotation: ^4.8.1
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.6
+  cached_network_image: ^3.3.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

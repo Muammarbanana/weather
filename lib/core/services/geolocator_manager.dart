@@ -72,7 +72,7 @@ class GeolocatorManager {
     final pref = SharedPreferencesManager();
     log("location : $location");
     pref.putString(SharedPreferencesManager.lat, "${location.latitude}");
-    pref.putString(SharedPreferencesManager.lng, "${location.longitude}");
+    pref.putString(SharedPreferencesManager.lon, "${location.longitude}");
 
     return location;
   }

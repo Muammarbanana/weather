@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weatherapp/features/presentation/ui/weather_info/pages/weather_page.dart';
 
 import 'core/routes/app_route.dart';
+import 'core/services/geolocator_manager.dart';
 import 'features/presentation/ui/authentication/pages/login_page.dart';
 import 'firebase_options.dart';
 import 'injection_container.dart' as di;
@@ -14,6 +17,7 @@ void main() async {
   );
   await di.init();
   di.sl.allowReassignment = true;
+  GeolocatorManager().determinePosition();
   runApp(const MyApp());
 }
 
@@ -31,7 +35,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       onGenerateRoute: (settings) => AppRoute.generateRoute(settings),
-      home: const LoginPage(),
+      home: (FirebaseAuth.instance.currentUser != null)
+          ? const WeatherPage()
+          : const LoginPage(),
     );
   }
 }

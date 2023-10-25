@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferencesManager {
   static late SharedPreferences _sharedPreferences;
   static const lat = "lat";
-  static const lng = "lng";
+  static const lon = "lon";
 
   SharedPreferencesManager();
 
